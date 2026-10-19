@@ -2,6 +2,8 @@
 
 Redesign of https://tanotsolutions.com/home2/ built with **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**.
 
+What changed from the original page, section by section: [docs/IMPROVEMENTS.md](docs/IMPROVEMENTS.md).
+
 ## Run
 
 ```bash
