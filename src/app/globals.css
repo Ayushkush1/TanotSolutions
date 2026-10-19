@@ -1,26 +1,123 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/*
+ * Tanot Solutions design tokens
+ * - One typeface (Inter) instead of the 6 families loaded on the live page
+ * - Brand blue #118dd1 kept; brand-600 is used behind white text (4.9:1 contrast, WCAG AA)
+ * - Logo green kept as a secondary accent for success / check states
+ * - 8pt spacing grid via Tailwind's default 4px scale (always multiples of 2)
+ */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-brand-50: #eef7fd;
+  --color-brand-100: #d8edfa;
+  --color-brand-200: #b3dbf4;
+  --color-brand-300: #7fc2eb;
+  --color-brand-400: #3ea3de;
+  --color-brand-500: #118dd1;
+  --color-brand-600: #0a76b4;
+  --color-brand-700: #0a5f91;
+  --color-brand-800: #0d4f77;
+  --color-brand-900: #0f3f5e;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  --color-leaf-50: #f0f8eb;
+  --color-leaf-100: #dcefd0;
+  --color-leaf-500: #63af40;
+  --color-leaf-600: #4e9330;
+
+  --color-ink-950: #0b1526;
+  --color-ink-900: #101828;
+  --color-ink-800: #1d2939;
+  --color-ink-700: #344054;
+  --color-ink-600: #475467;
+  --color-ink-500: #667085;
+  --color-ink-400: #98a2b3;
+
+  --color-line: #e4eaf2;
+  --color-mist: #f4f8fc;
+
+  --shadow-card: 0 1px 2px rgb(16 24 40 / 0.04), 0 1px 3px rgb(16 24 40 / 0.06);
+  --shadow-raised: 0 12px 32px -12px rgb(16 24 40 / 0.18), 0 2px 6px rgb(16 24 40 / 0.05);
+
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-marquee-reverse: marquee 40s linear infinite reverse;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Fluid type scale: one size per role, used everywhere */
+@utility text-display {
+  font-size: clamp(2.125rem, 1.4rem + 2.4vw, 3.25rem);
+  line-height: 1.08;
+  letter-spacing: -0.028em;
+  font-weight: 700;
+}
+
+@utility text-h2 {
+  font-size: clamp(1.875rem, 1.5rem + 1.5vw, 2.625rem);
+  line-height: 1.15;
+  letter-spacing: -0.022em;
+  font-weight: 700;
+}
+
+@utility text-h3 {
+  font-size: 1.25rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+@utility text-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  line-height: 1.65;
+}
+
+@utility container-site {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 82rem;
+  padding-inline: 1.25rem;
+  @variant sm { padding-inline: 1.5rem; }
+  @variant lg { padding-inline: 2rem; }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-white font-sans text-base leading-relaxed text-ink-600 antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    @apply text-ink-900;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-500;
+  }
+
+  /* section anchors clear the sticky header */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
 }

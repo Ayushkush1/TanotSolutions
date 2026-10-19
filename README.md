@@ -1,36 +1,46 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Tanot Solutions — Homepage redesign (test mockup)
 
-## Getting Started
+Redesign of https://tanotsolutions.com/home2/ built with **Next.js 15 (App Router) + TypeScript + Tailwind CSS v4**.
 
-First, run the development server:
+## Run
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start   # production build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+src/
+  app/
+    layout.tsx       Inter font (next/font, self-hosted), metadata, OG tags
+    page.tsx         Section order + Organization JSON-LD
+    globals.css      Design tokens (@theme), fluid type scale, container
+  content/site.ts    All copy, links and image paths (CMS-ready, no copy inside components)
+  components/
+    ui/Button.tsx    One button system: primary / secondary / inverse variants, md / lg sizes
+    ui/Section.tsx   Shared section rhythm, eyebrow and section heading
+    Header, Hero, LeadForm, ClientLogos, Reviews, Services, CaseStudy,
+    WhyUs, Awards, Founder, FeaturedOn, Faq, Blog, CtaBanner, Footer
+public/images/       Assets taken from the live site
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Design system in one glance
 
-## Learn More
+| Token | Value |
+|---|---|
+| Typeface | Inter only (live page loads Inter, Roboto, Roboto Slab, Poppins, Syne, DM Sans) |
+| Brand | `#118dd1` (accent, display text) · `#0a76b4` behind white text (4.9:1, WCAG AA) |
+| Accent | Logo green `#63af40` for checks / positive states |
+| Container | 1312px max (1248px content), 20 / 24 / 32px side gutters |
+| Section rhythm | 64 / 80 / 96px vertical padding (mobile / tablet / desktop) |
+| Radius | 12px controls · 16px cards · 24px feature panels |
+| Type scale | Display 36→56px · H2 30→42px · H3 20px · Lead 17→19px · Body 16px |
 
-To learn more about Next.js, take a look at the following resources:
+## Wiring needed for production
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `LeadForm` currently shows a success state only; connect it to an API route / CRM.
+- Team photos are monograms until real photos are supplied.
+- The case-study screenshot is 512×296 on the live site; a 2× export would make it sharp.
